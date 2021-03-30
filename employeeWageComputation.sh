@@ -3,7 +3,7 @@
 fullDayHours=8
 wagePerHour=20
 partTimeHour=8
-
+workDayinMonth=20
 
 feq=$((RANDOM%3))
 i=$feq
@@ -11,11 +11,11 @@ i=$feq
 case $i in
 	1)
 		echo "Present:"$i
-		employewage=$(($fullDayHours*$wagePerHour))
+		employeWageForAMonth=$(($fullDayHours*$wagePerHour*))
 		;;
 	2)
 		echo "partTime:"$i
-		employewage=$(($partTimeHour*$wagePerHour))
+		employeWageForAMonth=$(($partTimeHour*$wagePerHour))
 		;;
 	0)
 		echo "Absent:"
