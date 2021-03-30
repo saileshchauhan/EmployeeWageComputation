@@ -3,9 +3,10 @@
 fullDayHours=8
 wagePerHour=20
 partTimeHour=4
+
 workDayinMonth=0
 employeWageForAMonth=0
-countdailywage=0
+
 
 
 
@@ -46,7 +47,7 @@ do
 	workDayinMonth=$(($workDayinMonth+1))
 
 	fullDayHours=$(($empHrs+8))
-	partTimeHour=$(($empHrs+8))
+	partTimeHour=$(($empHrs+4))
 
 done
 
