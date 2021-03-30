@@ -5,6 +5,9 @@ wagePerHour=20
 partTimeHour=4
 workDayinMonth=0
 employeWageForAMonth=0
+countdailywage=0
+
+
 
 #Total wages till total working hours 100 or 20 day in a month
 
@@ -33,9 +36,12 @@ do
 
 	empCheck=$((RANDOM%3))
 	empHrs="$(getWorkHrs $empCheck)"
+
+	dailyWage=$(($empHrs*$wagePerHour))
 	employeWageForAMonth=$(($employeWageForAMonth+$(($empHrs*$wagePerHour))))
 
-
+	arr1[((DailyWage++))]=$dailyWage
+	arr2[((TotalWage++))]=$employeWageForAMonth
 
 	workDayinMonth=$(($workDayinMonth+1))
 
@@ -44,4 +50,5 @@ do
 
 done
 
-
+echo ${arr1[@]}
+echo ${arr2[@]}
