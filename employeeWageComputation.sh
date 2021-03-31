@@ -1,55 +1,50 @@
 #!/bin/bash -x
 
-fullDayHours=8
-wagePerHour=20
-partTimeHour=4
+declare -A dailyWage
 
-workDayinMonth=0
-employeWageForAMonth=0
+#CONSTANTS FOR THE PROGRAM
+IS_PART_TIME=1;
+IS_FULL_TIME=2;
+MAX_HRS_IN_MONTH=10;
+EMP_RATE_PER_HR=20;
+NUM_WORKING_DAYS=20;
 
+#VARIABLES
+totalEmpHr=0;
+totalWorkingDays=0;
 
-
-
-#Total wages till total working hours 100 or 20 day in a month
-
-function getWorkHrs(){
-	local i=$empCheck
-		 case $i in
-      	1)
-         	empHrs=8
-         ;;
-      	2)
-         	empHrs=4
-         ;;
-      	0)
-         	empHrs=0
-         ;;
-      	*)
-      	echo "Invalid Input"
-         ;;
-   esac
-	echo $empHrs
+function getWorkHrs() {
+        local empCheck=$1
+        case $empCheck in
+                $IS_FULL_TIME)
+                        empHrs=8
+                        ;;
+                $IS_PART_TIME)
+                        empHrs=4
+                        ;;
+                *)
+                        empHrs=0
+                        ;;
+        esac
+        echo $empHrs
 }
 
+function getEmpWage() {
+	local empHr=$1
+	echo $((empHr * EMP_RATE_PER_HR))
+}
 
-while [ $workDayinMonth -ne 20 -a $fullDayHours -ne 100 ]
+while [ $totalEmpHr -lt $MAX_HRS_IN_MONTH -a $totalWorkingDays -lt $NUM_WORKING_DAYS ]
 do
-
-	empCheck=$((RANDOM%3))
-	empHrs="$(getWorkHrs $empCheck)"
-
-	dailyWage=$(($empHrs*$wagePerHour))
-	employeWageForAMonth=$(($employeWageForAMonth+$(($empHrs*$wagePerHour))))
-
-	arr1[((DailyWage++))]=$dailyWage
-	arr2[((TotalWage++))]=$employeWageForAMonth
-
-	workDayinMonth=$(($workDayinMonth+1))
-
-	fullDayHours=$(($empHrs+8))
-	partTimeHour=$(($empHrs+4))
-
+        ((totalWorkingDays++))
+        empCheck=$((RANDOM % 3))
+        empHrs="$( getWorkHrs $empCheck )"
+        totalEmpHr=$(($totalEmpHr + $empHrs))
+	dailyWage["Day $totalWorkingDays"]="$( getEmpWage $empHrs )"
 done
 
-echo ${arr1[@]}
-echo ${arr2[@]}
+echo ${dailyWage[@]}
+echo ${!dailyWage[@]}
+totalSalary=$((totalEmpHr*$EMP_RATE_PER_HR));
+echo "Total Employee Hours: " $totalEmpHr;
+echo "Total Employee salary: "$totalSalary;
